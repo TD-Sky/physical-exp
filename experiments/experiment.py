@@ -15,20 +15,33 @@ class Experiment():
         return path
 
 
+    def Istream(self, suffix):
+        """读取指定文件suffix的内容
+        param: str suffix
+        return: str content
+        """
+        file = self.set_path(suffix)
+        with open(file, 'r') as fp:
+            content = fp.read()
+        return content 
+
+
     def print_template(self):
         """显示出实验的原始数据模板
         param: None
         return: None
         """
-        file = self.set_path(self.template)
-        with open(file, 'r') as fp:
-            content = fp.read()
-        print(content)
+        try:
+            template = self.Istream(self.template)
+        except IOError:
+            return -1
+
+        print(template)
 
 
-    def read_data(self):
-        """读取原始数据，并储存到相应的数据结构中
-        param: None
+    def collect_data(self):
+        """收集数据
+        param: str raw_data
         return: None
         """
         pass
