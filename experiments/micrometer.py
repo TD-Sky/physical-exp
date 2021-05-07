@@ -7,16 +7,24 @@ class Micrometer(Experiment):
 
     def __init__(self):
         self.template = "template/micrometer.txt"
-        self.data = None
+        self.input = "input/基本测量-千分尺.txt"
+        self.data = []
         self.result = 0
 
 
-    def read_data(self):
+    def collect_data(self):
         """ """
-        file = self.set_path("input/基本测量-千分尺.txt")
-        with open(file, 'r') as fp:
-            words = fp.read().strip().split(' ')
-        self.data = [float(word) for word in words]
+        code = 0
+        try:
+            raw_data = self.Istream(self.input)
+        except IOError:
+            code = -1
+
+        words = raw_data.strip().split(' ')
+        self.data = [float(s) for s in words]
+        print(self.data)
+
+        return code
 
 
     def write_result(self):
