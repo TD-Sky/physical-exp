@@ -5,10 +5,10 @@ from .experiment import Experiment
 class Vernier_caliper(Experiment):
     """基本测量-游标卡尺"""
 
-
     def __init__(self):
         self.template = "template/vernier_caliper.txt"
         self.input = "input/基本测量-游标卡尺.txt"
+        self.output = "output/基本测量-游标卡尺.txt"
         self.data = {}
         self.result = {'D1/mm': {}, 'H1/mm': {}}
                        
@@ -41,7 +41,7 @@ class Vernier_caliper(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream("output/基本测量-游标卡尺.txt", self.toStr('D1/mm', self.result['D1/mm']) + self.toStr('H1/mm', self.result['H1/mm']))
+        self.Ostream(self.output, self.toStr('D1/mm', self.result['D1/mm']) + self.toStr('H1/mm', self.result['H1/mm']))
 
 
     def toStr(self, title, achieve):

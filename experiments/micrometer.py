@@ -8,6 +8,7 @@ class Micrometer(Experiment):
     def __init__(self):
         self.template = "template/micrometer.txt"
         self.input = "input/基本测量-千分尺.txt"
+        self.output = "output/基本测量-千分尺.txt"
         self.data = []
         self.result = 0
 
@@ -28,11 +29,11 @@ class Micrometer(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream("output/基本测量-千分尺.txt", f'钢珠直径的平均值 D2/mm ：{self.result:.3f}\n')
+        self.Ostream(self.output, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
 
 
     def process(self):
         """ """
-        self.result = self.data.mean()
+        self.result = self.round_dec(self.data.mean(), 3)
 
 
