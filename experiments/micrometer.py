@@ -1,9 +1,9 @@
+import numpy as np
 from .experiment import Experiment
 
 
 class Micrometer(Experiment):
     """基本测量-千分尺"""
-
 
     def __init__(self):
         self.template = "template/micrometer.txt"
@@ -21,21 +21,18 @@ class Micrometer(Experiment):
             code = -1
 
         words = raw_data.strip().split(' ')
-        self.data = [float(s) for s in words]
-        print(self.data)
+        self.data = np.array([float(s) for s in words])
 
         return code
 
 
     def write_result(self):
         """ """
-        file = self.set_path("output/基本测量-千分尺.txt")
-        with open(file, 'w') as fp:
-            fp.write(f'钢珠直径的平均值 D2/mm ：{self.result:.3f}\n')
+        self.Ostream("output/基本测量-千分尺.txt", f'钢珠直径的平均值 D2/mm ：{self.result:.3f}\n')
 
 
     def process(self):
         """ """
-        self.result = sum(self.data) / len(self.data)
+        self.result = self.data.mean()
 
 
