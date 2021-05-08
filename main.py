@@ -5,11 +5,11 @@ import experiments as exps
 
 def choose():
     """让用户选择实验类型，对错误输入作出响应
-    成功码为0，数字错误码为1，非法输入码为-1
+    成功码为0，非法输入码为-1
     param: None
     return: int exp_t, int code
     """
-    exp_t = -1
+    n = -1
     code = 0
     choice = input("请选择实验类型：")
 
@@ -18,10 +18,7 @@ def choose():
     except ValueError:
         code = -1
 
-    if n < 0 or n > 2: 
-        code = 1
-    else:
-        exp_t = n
+    exp_t = n
 
     return exp_t, code
 
@@ -33,24 +30,23 @@ def interact():
     while True:
         os.system('clear')
 
-        print("0) 基本测量-千分尺\n1) 基本测量-游标卡尺\n2) 退出程序")
+        print("1) 基本测量-千分尺\n2) 基本测量-游标卡尺\n0) 退出程序")
         exp_t, code = choose()
 
-        if code != 0:
-
-            if code == 1:
-                print("请输入菜单给出的数字！")
-            elif code == -1:
-                print("请正确输入！")
-
+        if code == -1:
+            print("\n请输入菜单选项编号！")
+            input("\n按任意键继续")
             continue
 
-        if exp_t == 2:
+        if exp_t == 0:
             sys.exit()
 
-        exp = exp_tuple[exp_t]()
+        exp = exp_tuple[exp_t - 1]()
         exp.print_template()
         exp.collect_data()
+        exp.process()
+        exp.write_result()
+        input("\n按任意键继续")
 
 
 
