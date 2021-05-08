@@ -1,3 +1,6 @@
+from decimal import Decimal, ROUND_HALF_UP
+
+
 class Experiment():
     """所有物理实验的基类"""
 
@@ -24,6 +27,16 @@ class Experiment():
         with open(file, 'r') as fp:
             content = fp.read()
         return content 
+
+
+    def Ostream(self, suffix, content):
+        """向指定文件suffix写入内容
+        param: str suffix, str content
+        return: None
+        """
+        file = self.set_path(suffix)
+        with open(file, 'w') as fp:
+            fp.write(content)
 
 
     def print_template(self):
@@ -61,5 +74,14 @@ class Experiment():
         return: None
         """
         pass
+
+
+    def round_dec(self, n, d):
+        """将小数n按保留位d进行四舍五入
+        param: float n, int d
+        return: str s
+        """
+        s = '0.' + '0' * d
+        return Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP)
 
 
