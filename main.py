@@ -39,14 +39,21 @@ def interact():
             continue
 
         if exp_t == 0:
+            os.system('clear')
             sys.exit()
 
         exp = exp_tuple[exp_t - 1]()
+
         exp.print_template()
-        exp.collect_data()
+        input("\n请先放入文件，再按任意键继续")
+
+        if exp.collect_data() == -1:
+            input("\n未找到正确的输入文件！\n\n按任意键继续")
+            continue
+
         exp.process()
         exp.write_result()
-        input("\n按任意键继续")
+        input("\n结果已经写入至 output 目录中\n\n按任意键继续")
 
 
 
