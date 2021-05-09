@@ -76,7 +76,8 @@ class Experiment():
         pass
 
 
-    def round_dec(self, n, d):
+    @classmethod
+    def round_dec(cls, n, d):
         """将小数n按保留位d进行四舍五入
         param: float n, int d
         return: str s
