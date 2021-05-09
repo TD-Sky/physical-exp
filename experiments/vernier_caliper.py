@@ -1,4 +1,5 @@
 import numpy as np
+from collections import namedtuple
 from .experiment import Experiment
 
 
@@ -10,7 +11,7 @@ class Vernier_caliper(Experiment):
         self.input = "input/基本测量-游标卡尺.txt"
         self.output = "output/基本测量-游标卡尺.txt"
         self.data = {}
-        self.result = {'D1/mm': {}, 'H1/mm': {}}
+        self.result = {}
                        
 
     def collect_data(self):
@@ -20,28 +21,34 @@ class Vernier_caliper(Experiment):
         except IOError:
             return -1
 
-        lines = [s for s in raw_data.split('\n') if s != '']
+        lines = [s for s in raw_data.splitlines() if s != '']
         self.data['D1/mm'] = np.array([float(s) for s in lines[0].split(' ')])
         self.data['H1/mm'] = np.array([float(s) for s in lines[1].split(' ')])
 
 
     def process(self):
         """ """
+        ChartProperty = namedtuple('ChartProperty', ['S', 'S_x', 'dA', 'dB', 'U_x'])
+
         for key, val in self.data.items():
             S = val.std(ddof = 1)
             S_x = S / len(val)**0.5
             dA = 2 * S_x
             dB = 0.02
-            self.result[key]['S'] = super().round_dec(S, 3)
-            self.result[key]['S_x'] = self.e_format(super().round_dec(S_x, 4))
-            self.result[key]['dA'] = super().round_dec(dA, 2)
-            self.result[key]['dB'] = str(dB)
-            self.result[key]['U_x'] = super().round_dec((dA ** 2 + dB ** 2)**0.5, 2)
+            U_x = (dA ** 2 + dB ** 2)**0.5
+
+            info = ChartProperty(self.round_dec(S, 3),
+                                 self.e_format(self.round_dec(S_x, 4)),
+                                 self.round_dec(dA, 2),
+                                 str(dB),
+                                 self.round_dec(U_x, 2))
+            self.result[key] = info
 
 
     def write_result(self):
         """ """
-        self.Ostream(self.output, self.toStr('D1/mm', self.result['D1/mm']) + self.toStr('H1/mm', self.result['H1/mm']))
+        self.Ostream(self.output, 
+                self.toStr('D1/mm', self.result['D1/mm']) + self.toStr('H1/mm', self.result['H1/mm']))
 
 
     @staticmethod
@@ -60,6 +67,11 @@ class Vernier_caliper(Experiment):
         param: dict achieve
         return: str res
         """
-        return f"{title}\nS: {achieve['S']}\nS_x: {achieve['S_x']}\nΔA: {achieve['dA']}\nΔB: {achieve['dB']}\nU_x: {achieve['U_x']}\n\n"
+        return (f'{title}\n'
+                f'S: {achieve[0]}\n'
+                f'S_x: {achieve[1]}\n'
+                f'ΔA: {achieve[2]}\n'
+                f'ΔB: {achieve[3]}\n'
+                f'U_x: {achieve[4]}\n\n')
 
 
