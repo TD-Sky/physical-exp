@@ -32,11 +32,11 @@ class Vernier_caliper(Experiment):
             S_x = S / len(val)**0.5
             dA = 2 * S_x
             dB = 0.02
-            self.result[key]['S'] = self.round_dec(S, 3)
-            self.result[key]['S_x'] = self.round_dec(S_x, 4)
-            self.result[key]['dA'] = self.round_dec(dA, 2)
+            self.result[key]['S'] = super().round_dec(S, 3)
+            self.result[key]['S_x'] = self.e_format(super().round_dec(S_x, 4))
+            self.result[key]['dA'] = super().round_dec(dA, 2)
             self.result[key]['dB'] = str(dB)
-            self.result[key]['U_x'] = self.round_dec((dA ** 2 + dB ** 2)**0.5, 2)
+            self.result[key]['U_x'] = super().round_dec((dA ** 2 + dB ** 2)**0.5, 2)
 
 
     def write_result(self):
@@ -44,11 +44,22 @@ class Vernier_caliper(Experiment):
         self.Ostream(self.output, self.toStr('D1/mm', self.result['D1/mm']) + self.toStr('H1/mm', self.result['H1/mm']))
 
 
-    def toStr(self, title, achieve):
+    @staticmethod
+    def e_format(number):
+        """将小数(字符串)转换成指数形式
+        param: str number
+        return: str res
+        """
+        n = float(number)
+        return f'{n * 1000} × 10ˉ³'
+
+
+    @staticmethod
+    def toStr(title, achieve):
         """将处理结果转化成字符串
         param: dict achieve
         return: str res
         """
-        return f"{title}\nS: {achieve['S']}\nS_x: {achieve['S_x']}\t(手写成×10^(-3)形式)\nΔA: {achieve['dA']}\nΔB: {achieve['dB']}\nU_x: {achieve['U_x']}\n\n"
+        return f"{title}\nS: {achieve['S']}\nS_x: {achieve['S_x']}\nΔA: {achieve['dA']}\nΔB: {achieve['dB']}\nU_x: {achieve['U_x']}\n\n"
 
 
