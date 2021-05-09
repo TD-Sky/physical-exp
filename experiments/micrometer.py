@@ -33,6 +33,6 @@ class Micrometer(Experiment):
 
     def process(self):
         """ """
-        self.result = super().round_dec(self.data.mean(), 3)
+        self.result = self.round_dec(self.data.mean(), 3)
 
 

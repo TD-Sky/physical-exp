@@ -32,11 +32,11 @@ class Vernier_caliper(Experiment):
             S_x = S / len(val)**0.5
             dA = 2 * S_x
             dB = 0.02
-            self.result[key]['S'] = super().round_dec(S, 3)
-            self.result[key]['S_x'] = self.e_format(super().round_dec(S_x, 4))
-            self.result[key]['dA'] = super().round_dec(dA, 2)
+            self.result[key]['S'] = self.round_dec(S, 3)
+            self.result[key]['S_x'] = self.e_format(self.round_dec(S_x, 4))
+            self.result[key]['dA'] = self.round_dec(dA, 2)
             self.result[key]['dB'] = str(dB)
-            self.result[key]['U_x'] = super().round_dec((dA ** 2 + dB ** 2)**0.5, 2)
+            self.result[key]['U_x'] = self.round_dec((dA ** 2 + dB ** 2)**0.5, 2)
 
 
     def write_result(self):
