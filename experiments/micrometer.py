@@ -15,16 +15,15 @@ class Micrometer(Experiment):
 
     def collect_data(self):
         """ """
-        code = 0
         try:
             raw_data = self.Istream(self.input)
         except IOError:
-            code = -1
+            return -1
 
         words = raw_data.strip().split(' ')
         self.data = np.array([float(s) for s in words])
 
-        return code
+        return 0
 
 
     def write_result(self):
@@ -34,6 +33,6 @@ class Micrometer(Experiment):
 
     def process(self):
         """ """
-        self.result = self.round_dec(self.data.mean(), 3)
+        self.result = super().round_dec(self.data.mean(), 3)
 
 
