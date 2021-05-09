@@ -20,8 +20,8 @@ class Micrometer(Experiment):
         except IOError:
             return -1
 
-        words = raw_data.strip().split(' ')
-        self.data = np.array([float(s) for s in words])
+        words = raw_data.strip().split()
+        self.data = np.array([float(s) for s in words if s != ''])
 
         return 0
 
