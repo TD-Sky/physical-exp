@@ -25,12 +25,17 @@ def choose():
 
 def interact():
     """交互逻辑"""
-    exp_tuple = (exps.Micrometer, exps.Vernier_caliper)
+    exp_tuple = (exps.Micrometer, 
+                 exps.Vernier_caliper,
+                 exps.Solar_battery)
 
     while True:
         os.system('clear')
 
-        print("1) 基本测量-千分尺\n2) 基本测量-游标卡尺\n0) 退出程序")
+        print("1) 基本测量-千分尺\n"
+              "2) 基本测量-游标卡尺\n"
+              "3) 太阳能电池基本特性的测量\n"
+              "0) 退出程序")
         exp_t, code = choose()
 
         if code == -1:
