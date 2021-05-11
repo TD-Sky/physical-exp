@@ -1,3 +1,4 @@
+import os
 from decimal import Decimal, ROUND_HALF_UP
 
 
@@ -9,32 +10,35 @@ class Experiment():
         pass
 
 
-    def set_path(self, DirFileName):
-        """获取所需文件的绝对路径
-        param: str DirFileName
-        return: str path
+    @classmethod
+    def getPrefix(cls, backward = -3, path = __file__):
+        """递归获取倒数第|backward|级目录路径
+        param: int backward, str path
+        return: str path_head
         """
-        path = '/'.join(__file__.split('/')[:-2] + [DirFileName])
-        return path
+        return path if backward == 0 else cls.getPrefix(backward + 1, os.path.split(path)[0])
 
 
-    def Istream(self, suffix):
+    @classmethod
+    def Istream(cls, dirName, fileName):
         """读取指定文件suffix的内容
         param: str suffix
         return: str content
         """
-        file = self.set_path(suffix)
+        file = os.path.join(cls.getPrefix(), dirName, fileName)
+        print(file)
         with open(file, 'r') as fp:
             content = fp.read()
         return content 
 
 
-    def Ostream(self, suffix, content):
+    @classmethod
+    def Ostream(cls, dirName, fileName, content):
         """向指定文件suffix写入内容
         param: str suffix, str content
         return: None
         """
-        file = self.set_path(suffix)
+        file = os.path.join(cls.getPrefix(), dirName, fileName)
         with open(file, 'w') as fp:
             fp.write(content)
 
@@ -45,7 +49,7 @@ class Experiment():
         return: None
         """
         try:
-            template = self.Istream(self.template)
+            template = self.Istream('template', self.template)
         except IOError:
             return -1
 

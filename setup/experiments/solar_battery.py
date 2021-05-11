@@ -6,9 +6,9 @@ class Solar_battery(Experiment):
     """太阳能电池基本特性的测量"""
 
     def __init__(self):
-        self.template = "template/solar_battery.txt"
-        self.input = "input/太阳能电池基本特性的测量.txt"
-        self.output = "output/太阳能电池基本特性的测量.txt"
+        self.template = "solar_battery.txt"
+        self.input = "太阳能电池基本特性的测量.txt"
+        self.output = "太阳能电池基本特性的测量.txt"
         self.data = {}
         self.result = {}
     

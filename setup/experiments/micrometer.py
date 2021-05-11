@@ -6,9 +6,9 @@ class Micrometer(Experiment):
     """基本测量-千分尺"""
 
     def __init__(self):
-        self.template = "template/micrometer.txt"
-        self.input = "input/基本测量-千分尺.txt"
-        self.output = "output/基本测量-千分尺.txt"
+        self.template = "micrometer.txt"
+        self.input = "基本测量-千分尺.txt"
+        self.output = "基本测量-千分尺.txt"
         self.data = []
         self.result = 0
 
@@ -16,7 +16,7 @@ class Micrometer(Experiment):
     def collect_data(self):
         """ """
         try:
-            raw_data = self.Istream(self.input)
+            raw_data = self.Istream('input', self.input)
         except IOError:
             return -1
 
@@ -28,7 +28,7 @@ class Micrometer(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream(self.output, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
+        self.Ostream('output', self.output, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
 
 
     def process(self):
