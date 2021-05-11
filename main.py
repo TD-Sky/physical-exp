@@ -29,12 +29,14 @@ def choose():
 
 def interact():
     """交互逻辑"""
+    command = 'clear' if sys.platform == 'linux' else 'cls'
+
     exp_tuple = (exps.Micrometer, 
                  exps.Vernier_caliper,
                  exps.Solar_battery)
 
     while True:
-        os.system('clear')
+        os.system(command)
 
         print("1) 基本测量-千分尺\n"
               "2) 基本测量-游标卡尺\n"
