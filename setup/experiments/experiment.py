@@ -26,7 +26,6 @@ class Experiment():
         return: str content
         """
         file = os.path.join(cls.getPrefix(), dirName, fileName)
-        print(file)
         with open(file, 'r') as fp:
             content = fp.read()
         return content 
