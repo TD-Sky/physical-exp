@@ -11,7 +11,7 @@ class Experiment():
 
 
     @classmethod
-    def getPrefix(cls, backward = -3, path = __file__):
+    def getPrefix(cls, backward = -2, path = __file__):
         """递归获取倒数第|backward|级目录路径
         param: int backward, str path
         return: str path_head
