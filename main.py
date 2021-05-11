@@ -1,6 +1,7 @@
 import os
 import sys
 import experiments as exps
+from getpass import getpass
 
 
 def choose():
@@ -9,16 +10,19 @@ def choose():
     param: None
     return: int exp_t, int code
     """
-    n = -1
+    exp_t = -1
     code = 0
-    choice = input("请选择实验类型：")
+    option = input("请选择实验类型：")
 
     try:
-        n = int(choice)
+        n = int(option)
     except ValueError:
         code = -1
-
-    exp_t = n
+    else:
+        if (0 <= n <= 3):
+            exp_t = n
+        else:
+            code = -1
 
     return exp_t, code
 
@@ -39,8 +43,7 @@ def interact():
         exp_t, code = choose()
 
         if code == -1:
-            print("\n请输入菜单选项编号！")
-            input("\n按任意键继续")
+            getpass("\n请输入菜单选项编号！\n\n按回车键继续")
             continue
 
         if exp_t == 0:
@@ -50,15 +53,15 @@ def interact():
         exp = exp_tuple[exp_t - 1]()
 
         exp.print_template()
-        input("\n请先放入文件，再按任意键继续")
+        getpass("\n请先放入文件，再按回车键继续")
 
         if exp.collect_data() == -1:
-            input("\n未找到正确的输入文件！\n\n按任意键继续")
+            getpass("\n未找到正确的输入文件！\n\n回车键继续")
             continue
 
         exp.process()
         exp.write_result()
-        input("\n结果已经写入至 output 目录中\n\n按任意键继续")
+        getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
 
 
 
