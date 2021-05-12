@@ -1,7 +1,6 @@
+import os
 import matplotlib.pyplot as plt
-import seaborn as sns; sns.set()
 import numpy as np
-from sklearn.linear_model import LinearRegression
 from .experiment import Experiment
 
 
@@ -57,6 +56,11 @@ class Solar_battery(Experiment):
                 f"最大输出功率: {self.round_dec(Pmax, 3)}\n" + 
                 f"相应电阻值: {cores_R}\n\n")
 
+        fig = plt.figure()
+        file = os.path.join(self.getPrefix(), 'output', '太阳能电池伏安特性曲线.png')
+        plt.xticks(np.arange(0, 3, 0.1))
+        plt.yticks(np.arange(0, 3, 0.1))
+        plt.grid()
         plt.scatter(self.data['U/V'], self.data['I/mA'])
-        plt.show()
+        fig.savefig(file)
 
