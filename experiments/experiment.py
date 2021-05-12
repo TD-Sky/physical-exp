@@ -86,6 +86,5 @@ class Experiment():
         return: str s
         """
         s = '0.' + '0' * d
-        return Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP)
-
+        return float(Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP))
 
