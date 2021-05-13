@@ -56,7 +56,24 @@ class Experiment():
 
 
     def collect_data(self):
-        """收集数据
+        """收集数据，
+           成功读取输入则返回0，失败则返回-1
+        param: str raw_data
+        return: None
+        """
+        code = 0
+        try:
+            raw_data = self.Istream('input', self.io)
+        except IOError:
+            code = -1
+        else:
+            self.collect_way(raw_data)
+
+        return code
+
+
+    def collect_way(self, raw_data):
+        """收集数据的方式
         param: str raw_data
         return: None
         """
@@ -86,6 +103,5 @@ class Experiment():
         return: str s
         """
         s = '0.' + '0' * d
-        return Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP)
-
+        return float(Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP))
 

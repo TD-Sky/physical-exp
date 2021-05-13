@@ -7,28 +7,20 @@ class Micrometer(Experiment):
 
     def __init__(self):
         self.template = "micrometer.txt"
-        self.input = "基本测量-千分尺.txt"
-        self.output = "基本测量-千分尺.txt"
-        self.data = []
+        self.io = "基本测量-千分尺.txt"
+        self.data = None
         self.result = 0
 
 
-    def collect_data(self):
+    def collect_way(self, raw_data):
         """ """
-        try:
-            raw_data = self.Istream('input', self.input)
-        except IOError:
-            return -1
-
         words = raw_data.strip().split()
         self.data = np.array([float(s) for s in words if s != ''])
-
-        return 0
 
 
     def write_result(self):
         """ """
-        self.Ostream('output', self.output, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
+        self.Ostream('output', self.io, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
 
 
     def process(self):
