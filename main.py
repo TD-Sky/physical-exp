@@ -19,7 +19,7 @@ def choose():
     except ValueError:
         code = -1
     else:
-        if (0 <= n <= 3):
+        if (0 <= n <= 4):
             exp_t = n
         else:
             code = -1
@@ -33,7 +33,8 @@ def interact():
 
     exp_tuple = (exps.Micrometer, 
                  exps.Vernier_caliper,
-                 exps.Solar_battery)
+                 exps.Solar_battery,
+                 exps.Pn_junction)
 
     while True:
         os.system(command)
@@ -41,6 +42,7 @@ def interact():
         print("1) 基本测量-千分尺\n"
               "2) 基本测量-游标卡尺\n"
               "3) 太阳能电池基本特性的测量\n"
+              "4) pn结温度-电压特性的测定\n"
               "0) 退出程序")
         exp_t, code = choose()
 
