@@ -53,11 +53,11 @@ class Solar_battery(Experiment):
         else:
             R_P += '\n'
 
-        self.Ostream('output', self.io,
-                R_P + 
-                f"最大输出功率: {self.round_dec(Pmax, 3)}\n" + 
+        self.Ostream(R_P + 
+                f"最大输出功率: {self.round_dec(Pmax, 3)}\n"
                 f"相应电阻值: {cores_R}\n"
-                "手算填充因子，F = Pm/(Isc × Uoc)，请：\n")
+                "手算填充因子，F = Pm/(Isc × Uoc)，请：\n",
+                self.io)
 
         plt.scatter(self.data['U/V'], self.data['I/mA'])
         self.fig.savefig(os.path.join(self.getPrefix(), 'output', '太阳能电池伏安特性曲线.png'))

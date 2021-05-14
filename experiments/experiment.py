@@ -19,25 +19,23 @@ class Experiment():
         return path if backward == 0 else cls.getPrefix(backward + 1, os.path.split(path)[0])
 
 
-    @classmethod
-    def Istream(cls, dirName, fileName):
-        """读取指定文件suffix的内容
-        param: str suffix
+    def Istream(self, fileName, dirName = 'input'):
+        """读取指定文件的内容
+        param: str dirName, str fileName
         return: str content
         """
-        file = os.path.join(cls.getPrefix(), dirName, fileName)
+        file = os.path.join(self.getPrefix(), dirName, fileName)
         with open(file, 'r') as fp:
             content = fp.read()
         return content 
 
 
-    @classmethod
-    def Ostream(cls, dirName, fileName, content):
-        """向指定文件suffix写入内容
-        param: str suffix, str content
+    def Ostream(self, content, fileName, dirName = 'output'):
+        """向指定文件写入内容
+        param: str content, str dirName, str fileName
         return: None
         """
-        file = os.path.join(cls.getPrefix(), dirName, fileName)
+        file = os.path.join(self.getPrefix(), dirName, fileName)
         with open(file, 'w') as fp:
             fp.write(content)
 
@@ -48,7 +46,7 @@ class Experiment():
         return: None
         """
         try:
-            template = self.Istream('template', self.template)
+            template = self.Istream(self.template, 'template')
         except IOError:
             return -1
 
@@ -63,7 +61,7 @@ class Experiment():
         """
         code = 0
         try:
-            raw_data = self.Istream('input', self.io)
+            raw_data = self.Istream(self.io)
         except IOError:
             code = -1
         else:
