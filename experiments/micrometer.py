@@ -20,7 +20,7 @@ class Micrometer(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream('output', self.io, f'钢珠直径的平均值 D2/mm ：{self.result}\n')
+        self.Ostream(f'钢珠直径的平均值 D2/mm ：{self.result}\n', self.io)
 
 
     def process(self):

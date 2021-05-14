@@ -50,11 +50,12 @@ class Pn_junction(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream('output', self.io, 
-                     "a 与 k 是与pn结材料有关的常数\n" +
-                    f"a = {self.result[0]}\n" + 
-                    f"k = {self.result[1]}\n"
-        )
+        self.Ostream("a 与 k 是与pn结材料有关的常数\n"
+                    f"a = {self.result[0]}\n"
+                    f"k = {self.result[1]}\n",
+                    self.io)
+
         plt.scatter(self.data['t'], self.data['U/V'])
         plt.plot(self.data['t'], self.Ufit)
         self.fig.savefig(os.path.join(self.getPrefix(), 'output', 'pn结温度-电压特性的测定.png'))
+

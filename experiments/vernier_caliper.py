@@ -40,9 +40,9 @@ class Vernier_caliper(Experiment):
 
     def write_result(self):
         """ """
-        self.Ostream('output', self.io, 
-                     self.toStr('D1/mm', self.result['D1/mm']) +
-                     self.toStr('H1/mm', self.result['H1/mm']))
+        self.Ostream(self.toStr('D1/mm', self.result['D1/mm']) +
+                     self.toStr('H1/mm', self.result['H1/mm']),
+                     self.io)
 
 
     @staticmethod
