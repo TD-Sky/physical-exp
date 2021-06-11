@@ -9,7 +9,7 @@ class Solar_battery(Experiment):
 
     def __init__(self):
         self.template = "solar_battery.txt"
-        self.io = "太阳能电池基本特性的测量.txt"
+        self.io = "太阳能电池基本特性的测量"
         self.data = {}
         self.result = {}
 
@@ -19,11 +19,9 @@ class Solar_battery(Experiment):
 
     def collect_way(self, raw_data):
         """ """
-        lines = [ line.split() for line in raw_data.splitlines() if line != '' ]
-        cols = list(zip(*lines))
-        self.data['R'] = tuple([ int(s) for s in cols[0] ])
-        self.data['I/mA'] = np.array([ float(s) for s in cols[1] ])
-        self.data['U/V'] = np.array([ float(s) for s in cols[2] ])
+        self.data['R/O'] = tuple(raw_data["R/O"])
+        self.data['I/mA'] = np.array(raw_data["I/mA"])
+        self.data['U/V'] = np.array(raw_data["U/V"])
 
 
     def process(self):
@@ -45,7 +43,7 @@ class Solar_battery(Experiment):
         # 与 绘制电阻-功率表格 二合一
         R_P = f"{'R/Ω':4s}\t\t{'P/mW':4s}\n"
         Pmax = cores_R = 0
-        for R, P in zip(self.data['R'], self.result['P/mW']):
+        for R, P in zip(self.data["R/O"], self.result['P/mW']):
             R_P += f'{R:4d}\t\t{self.round_dec(P, 3):.3f}\n'
             if Pmax < P:
                 Pmax = P
@@ -56,8 +54,7 @@ class Solar_battery(Experiment):
         self.Ostream(R_P + 
                 f"最大输出功率: {self.round_dec(Pmax, 3)}\n"
                 f"相应电阻值: {cores_R}\n"
-                "手算填充因子，F = Pm/(Isc × Uoc)，请：\n",
-                self.io)
+                "手算填充因子，F = Pm/(Isc × Uoc)，请：\n")
 
         plt.scatter(self.data['U/V'], self.data['I/mA'])
         self.fig.savefig(os.path.join(self.getPrefix(), 'output', '太阳能电池伏安特性曲线.png'))

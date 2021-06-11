@@ -11,7 +11,7 @@ class Pn_junction(Experiment):
 
     def __init__(self):
         self.template = "pn_junction.txt"
-        self.io = "pn结温度-电压特性的测定.txt"
+        self.io = "pn结温度-电压特性的测定"
         self.data = {}
         self.result = None
 
@@ -22,9 +22,8 @@ class Pn_junction(Experiment):
 
     def collect_way(self, raw_data):
         """ """
-        lines = [line.split() for line in raw_data.splitlines() if line != '']
-        self.data['t'] = np.array([int(x) for x in lines[0]])
-        self.data['U/V'] = np.array([float(x) for x in lines[1]]) 
+        self.data['t/C'] = np.array(raw_data["t/C"])
+        self.data['U/V'] = np.array(raw_data["U/V"])
 
 
     def process(self):
@@ -32,7 +31,7 @@ class Pn_junction(Experiment):
         Matrl_const = namedtuple('Matrl_const', ['a', 'k'])
         # 线性回归
         model = LinearRegression(fit_intercept=True)
-        reshape_t = self.data['t'][:, np.newaxis]
+        reshape_t = self.data['t/C'][:, np.newaxis]
         model.fit(reshape_t, self.data['U/V'])
         self.Ufit = model.predict(reshape_t)
         self.result = Matrl_const(self.round_dec(model.intercept_, 3),
@@ -52,10 +51,9 @@ class Pn_junction(Experiment):
         """ """
         self.Ostream("a 与 k 是与pn结材料有关的常数\n"
                     f"a = {self.result[0]}\n"
-                    f"k = {self.result[1]}\n",
-                    self.io)
+                    f"k = {self.result[1]}\n")
 
-        plt.scatter(self.data['t'], self.data['U/V'])
-        plt.plot(self.data['t'], self.Ufit)
+        plt.scatter(self.data['t/C'], self.data['U/V'])
+        plt.plot(self.data['t/C'], self.Ufit)
         self.fig.savefig(os.path.join(self.getPrefix(), 'output', 'pn结温度-电压特性的测定.png'))
 

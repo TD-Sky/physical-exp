@@ -8,16 +8,15 @@ class Vernier_caliper(Experiment):
 
     def __init__(self):
         self.template = "vernier_caliper.txt"
-        self.io = "基本测量-游标卡尺.txt"
+        self.io = "基本测量-游标卡尺"
         self.data = {}
         self.result = {}
                        
 
     def collect_way(self, raw_data):
         """ """
-        lines = [line.split() for line in raw_data.splitlines() if line != '']
-        self.data['D1/mm'] = np.array([float(s) for s in lines[0]])
-        self.data['H1/mm'] = np.array([float(s) for s in lines[1]])
+        self.data['D1/mm'] = np.array(raw_data["D1/mm"])
+        self.data['H1/mm'] = np.array(raw_data["H1/mm"])
 
 
     def process(self):
@@ -41,8 +40,7 @@ class Vernier_caliper(Experiment):
     def write_result(self):
         """ """
         self.Ostream(self.toStr('D1/mm', self.result['D1/mm']) +
-                     self.toStr('H1/mm', self.result['H1/mm']),
-                     self.io)
+                     self.toStr('H1/mm', self.result['H1/mm']))
 
 
     @staticmethod

@@ -7,20 +7,21 @@ class Micrometer(Experiment):
 
     def __init__(self):
         self.template = "micrometer.txt"
-        self.io = "基本测量-千分尺.txt"
+        self.io = "基本测量-千分尺"
         self.data = None
         self.result = 0
 
 
     def collect_way(self, raw_data):
         """ """
-        words = raw_data.strip().split()
-        self.data = np.array([float(s) for s in words if s != ''])
+       #words = raw_data.strip().split()
+       #self.data = np.array([float(s) for s in words if s != ''])
+        self.data = np.array(raw_data["diameter"])
 
 
     def write_result(self):
         """ """
-        self.Ostream(f'钢珠直径的平均值 D2/mm ：{self.result}\n', self.io)
+        self.Ostream(f'钢珠直径的平均值 D2/mm ：{self.result}\n')
 
 
     def process(self):

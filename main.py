@@ -29,7 +29,7 @@ def choose():
 
 def interact():
     """交互逻辑"""
-    command = 'clear' if sys.platform == 'linux' else 'cls'
+    clScr = "clear" if sys.platform == "linux" else "cls"
 
     exp_tuple = (exps.Micrometer, 
                  exps.Vernier_caliper,
@@ -37,7 +37,7 @@ def interact():
                  exps.Pn_junction)
 
     while True:
-        os.system(command)
+        os.system(clScr)
 
         print("1) 基本测量-千分尺\n"
               "2) 基本测量-游标卡尺\n"
@@ -51,7 +51,7 @@ def interact():
             continue
 
         if exp_t == 0:
-            os.system('clear')
+            os.system(clScr)
             sys.exit()
 
         exp = exp_tuple[exp_t - 1]()
