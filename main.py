@@ -43,6 +43,7 @@ def interact():
               "2) 基本测量-游标卡尺\n"
               "3) 太阳能电池基本特性的测量\n"
               "4) pn结温度-电压特性的测定\n"
+              "5) 电子示波器的使用\n"
               "0) 退出程序")
         exp_t, code = choose()
 
@@ -55,17 +56,19 @@ def interact():
             sys.exit()
 
         exp = exp_tuple[exp_t - 1]()
-
         exp.print_template()
         getpass("\n请先放入文件，再按回车键继续")
 
-        if exp.collect_data() == -1:
+        flag = exp.collect_data()
+        if flag == 0:
+            exp.process()
+            exp.write_result()
+            exp = None
+            getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
+        elif flag == 1:
             getpass("\n未找到正确的输入文件！\n\n回车键继续")
-            continue
-
-        exp.process()
-        exp.write_result()
-        getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
+        elif flag == 2:
+            getpass("\n输入内容格式错误！\n\n回车键继续")
 
 
 

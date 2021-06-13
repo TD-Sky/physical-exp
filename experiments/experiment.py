@@ -53,19 +53,24 @@ class Experiment():
 
     def collect_data(self):
         """收集数据，
-           成功读取输入则返回0，失败则返回-1
+        --状态码--
+        成功: 0
+        文件读写错误: 1
+        json解码错误: 2
         param: str raw_data
-        return: None
+        return: int flag
         """
-        code = 0
+        flag = 0
         try:
             raw_data = self.Istream()
         except IOError:
-            code = -1
+            flag = 1
+        except json.JSONDecodeError:
+            flag = 2
         else:
             self.collect_way(raw_data)
 
-        return code
+        return flag
 
 
     def collect_way(self, raw_data):
