@@ -19,7 +19,7 @@ def choose():
     except ValueError:
         code = -1
     else:
-        if (0 <= n <= 4):
+        if (0 <= n <= 5):
             exp_t = n
         else:
             code = -1
@@ -34,7 +34,8 @@ def interact():
     exp_tuple = (exps.Micrometer, 
                  exps.Vernier_caliper,
                  exps.Solar_battery,
-                 exps.Pn_junction)
+                 exps.Pn_junction,
+                 exps.E_oscilloscope)
 
     while True:
         os.system(clScr)
@@ -61,10 +62,15 @@ def interact():
 
         flag = exp.collect_data()
         if flag == 0:
-            exp.process()
-            exp.write_result()
-            exp = None
-            getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
+            try:
+                exp.process()
+            except KeyError:
+                getpass("\n某段输入数据的名字写错了\n\n回车键继续")
+            else:
+                exp.write_result()
+                getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
+            finally:
+                exp = None
         elif flag == 1:
             getpass("\n未找到正确的输入文件！\n\n回车键继续")
         elif flag == 2:
