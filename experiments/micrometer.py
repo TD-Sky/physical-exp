@@ -14,8 +14,6 @@ class Micrometer(Experiment):
 
     def collect_way(self, raw_data):
         """ """
-       #words = raw_data.strip().split()
-       #self.data = np.array([float(s) for s in words if s != ''])
         self.data = np.array(raw_data["diameter"])
 
 
