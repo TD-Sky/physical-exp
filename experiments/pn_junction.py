@@ -34,13 +34,13 @@ class Pn_junction(Experiment):
         reshape_t = self.data['t/C'][:, np.newaxis]
         model.fit(reshape_t, self.data['U/V'])
         self.Ufit = model.predict(reshape_t)
-        self.result = Matrl_const(self.round_dec(model.intercept_, 3),
-                    f'{self.round_dec(-model.coef_[0], 5) * 1000} × 10ˉ³')
+        self.result = Matrl_const(float(self.round_dec(model.intercept_, 3)),
+                    f'{float(self.round_dec(-model.coef_[0], 5) * 1000)} × 10ˉ³')
 
         # 设置曲线图样式
         plt.xticks(np.arange(25, 80, 5))
-        plt.yticks(np.arange(self.round_dec(self.data['U/V'].min(), 2),
-                             self.round_dec(self.data['U/V'].max(), 2)+0.01,
+        plt.yticks(np.arange(float(self.round_dec(self.data['U/V'].min(), 2)),
+                             float(self.round_dec(self.data['U/V'].max(), 2))+0.01,
                              0.01))
         plt.xlabel('t/℃')
         plt.ylabel('U/V')

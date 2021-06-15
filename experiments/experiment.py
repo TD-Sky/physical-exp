@@ -101,8 +101,8 @@ class Experiment():
     def round_dec(cls, n, d):
         """将小数n按保留位d进行四舍五入
         param: float n, int d
-        return: str s
+        return: Decimal dec
         """
         s = '0.' + '0' * d
-        return float(Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP))
+        return Decimal(str(n)).quantize(Decimal(s), rounding=ROUND_HALF_UP)
 

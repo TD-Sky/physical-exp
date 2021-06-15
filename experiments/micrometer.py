@@ -17,13 +17,12 @@ class Micrometer(Experiment):
         self.data = np.array(raw_data["diameter"])
 
 
+    def process(self):
+        """ """
+        self.result = float(self.round_dec(self.data.mean(), 3))
+
+
     def write_result(self):
         """ """
         self.Ostream(f'钢珠直径的平均值 D2/mm ：{self.result}\n')
-
-
-    def process(self):
-        """ """
-        self.result = self.round_dec(self.data.mean(), 3)
-
 

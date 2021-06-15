@@ -30,11 +30,11 @@ class Vernier_caliper(Experiment):
             dB = 0.02
             U_x = (dA ** 2 + dB ** 2)**0.5
 
-            self.result[key] = ChartProperty(self.round_dec(S, 3),
-                                 f'{self.round_dec(S_x, 4) * 1000} × 10ˉ³',
-                                 self.round_dec(dA, 2),
+            self.result[key] = ChartProperty(float(self.round_dec(S, 3)),
+                                 f"{float(self.round_dec(S_x, 4)) * 1000} × 10ˉ³",
+                                 float(self.round_dec(dA, 2)),
                                  str(dB),
-                                 self.round_dec(U_x, 2))
+                                 float(self.round_dec(U_x, 2)))
 
 
     def write_result(self):
@@ -44,15 +44,15 @@ class Vernier_caliper(Experiment):
 
 
     @staticmethod
-    def toStr(title, achieve):
+    def toStr(title, result):
         """将处理结果转化成字符串
-        param: dict achieve
-        return: str res
+        param: dict result
+        return: str s
         """
         return (f'{title}\n'
-                f'S: {achieve[0]}\n'
-                f'S_x: {achieve[1]}\n'
-                f'ΔA: {achieve[2]}\n'
-                f'ΔB: {achieve[3]}\n'
-                f'U_x: {achieve[4]}\n\n')
+                f'S: {result[0]}\n'
+                f'S_x: {result[1]}\n'
+                f'ΔA: {result[2]}\n'
+                f'ΔB: {result[3]}\n'
+                f'U_x: {result[4]}\n\n')
 
