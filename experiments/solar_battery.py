@@ -15,7 +15,7 @@ class Solar_battery(Experiment):
 
         plt.style.use('classic')
         self.fig = plt.figure(figsize=(12, 12))
-    
+
 
     def collect_way(self, raw_data):
         """ """
