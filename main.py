@@ -19,7 +19,7 @@ def choose():
     except ValueError:
         code = -1
     else:
-        if (0 <= n <= 5):
+        if (0 <= n <= 7):
             exp_t = n
         else:
             code = -1
@@ -35,7 +35,8 @@ def interact():
                  exps.Vernier_caliper,
                  exps.Solar_battery,
                  exps.Pn_junction,
-                 exps.E_oscilloscope)
+                 exps.E_oscilloscope,
+                 exps.Non_linear)
 
     while True:
         os.system(clScr)
@@ -45,6 +46,8 @@ def interact():
               "3) 太阳能电池基本特性的测量\n"
               "4) pn结温度-电压特性的测定\n"
               "5) 电子示波器的使用\n"
+              "6) 牛顿环实验\n"
+              "7) 非线性实验(废案)\n"
               "0) 退出程序")
         exp_t, code = choose()
 
