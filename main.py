@@ -36,6 +36,7 @@ def interact():
                  exps.Solar_battery,
                  exps.Pn_junction,
                  exps.E_oscilloscope,
+                 exps.Newton_ring,
                  exps.Non_linear)
 
     while True:
