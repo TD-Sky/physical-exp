@@ -37,10 +37,7 @@ class Non_linear(Experiment):
         return: dict res
         """
         for key, val in dct.items():
-            if isinstance(val, dict):
-                dct[key] = Non_linear.set_np(val)
-            else:
-                dct[key] = np.array(val)
+            dct[key] = Non_linear.set_np(val) if isinstance(val, dict) else np.array(val)
         return dct
 
 
