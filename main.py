@@ -1,6 +1,6 @@
 import os
 import sys
-from lib import ExpMenu
+from exp_menu import ExpMenu
 from getpass import getpass
 
 
