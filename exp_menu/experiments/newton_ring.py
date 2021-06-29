@@ -24,7 +24,10 @@ class Newton_ring(Experiment):
         self.result["D^2"] = np.square(self.result["D"])
 
         LAMBDA = 589.3 * 10**(-6)
-        self.result["R_"] = Pipe | [(self.result["D^2"][m] - self.result["D^2"][n]) / (4*4*LAMBDA) for m, n in zip(range(0, 4), range(4, 8))] | np.array | np.mean | partial(self.round_dec, 3) | None
+        self.result["R_"] = Pipe | \
+                zip(self.result["D^2"][0:4], self.result["D^2"][4:8]) | \
+                partial(map, lambda tp: (tp[0] - tp[1]) / (4*4*LAMBDA)) | \
+                np.array | np.mean | partial(self.round_dec, 3) | None
 
 
     def write_result(self):
