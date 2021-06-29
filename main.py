@@ -1,6 +1,6 @@
 import os
 import sys
-import experiments as exps
+from lib import ExpMenu
 from getpass import getpass
 
 
@@ -29,18 +29,11 @@ def choose():
 
 def interact():
     """交互逻辑"""
-    clScr = "clear" if sys.platform == "linux" else "cls"
-
-    exp_tuple = (exps.Micrometer, 
-                 exps.Vernier_caliper,
-                 exps.Solar_battery,
-                 exps.Pn_junction,
-                 exps.E_oscilloscope,
-                 exps.Newton_ring,
-                 exps.Non_linear)
+    exp_menu = ExpMenu()
+    clr_scr = "clear" if sys.platform == "linux" else "cls"
 
     while True:
-        os.system(clScr)
+        os.system(clr_scr)
 
         print("1) 基本测量-千分尺\n"
               "2) 基本测量-游标卡尺\n"
@@ -57,29 +50,28 @@ def interact():
             continue
 
         if exp_t == 0:
-            os.system(clScr)
+            os.system(clr_scr)
             sys.exit()
 
-        exp = exp_tuple[exp_t - 1]()
-        exp.print_template()
+        exp_menu.choose(exp_t)
+        exp_menu.using.print_template()
         getpass("\n请先放入文件，再按回车键继续")
 
-        flag = exp.collect_data()
+        flag = exp_menu.using.collect_data()
         if flag == 0:
             try:
-                exp.process()
+                exp_menu.using.process()
             except KeyError:
                 getpass("\n某段输入数据的名字写错了\n\n回车键继续")
             else:
-                exp.write_result()
+                exp_menu.using.write_result()
                 getpass("\n结果已经写入至 output 目录中\n\n回车键继续")
             finally:
-                exp = None
+                exp_menu.remake()
         elif flag == 1:
             getpass("\n未找到正确的输入文件！\n\n回车键继续")
         elif flag == 2:
             getpass("\n输入内容格式错误！\n\n回车键继续")
-
 
 
 if __name__ == '__main__':
