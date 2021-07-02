@@ -53,7 +53,7 @@ def interact():
             os.system(clr_scr)
             sys.exit()
 
-        exp_menu.choose(exp_t)
+        exp_menu.choose(exp_t-1)
         exp_menu.using.print_template()
         getpass("\n请先放入文件，再按回车键继续")
 
