@@ -1,6 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+from ..get_prefix import getPrefix
 from .experiment import Experiment
 
 
@@ -57,5 +58,5 @@ class Solar_battery(Experiment):
                 "手算填充因子，F = Pm/(Isc × Uoc)，请：\n")
 
         plt.scatter(self.data['U/V'], self.data['I/mA'])
-        self.fig.savefig(os.path.join(self.getPrefix(), 'output', '太阳能电池伏安特性曲线.png'))
+        self.fig.savefig(os.path.join(getPrefix(__file__, -3), 'output', '太阳能电池伏安特性曲线.png'))
 

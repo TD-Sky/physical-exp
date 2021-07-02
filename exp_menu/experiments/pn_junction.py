@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from collections import namedtuple
 from .experiment import Experiment
+from ..get_prefix import getPrefix
 
 
 class Pn_junction(Experiment):
@@ -55,5 +56,5 @@ class Pn_junction(Experiment):
 
         plt.scatter(self.data['t/C'], self.data['U/V'])
         plt.plot(self.data['t/C'], self.Ufit)
-        self.fig.savefig(os.path.join(self.getPrefix(), 'output', 'pn结温度-电压特性的测定.png'))
+        self.fig.savefig(os.path.join(getPrefix(__file__, -3), 'output', 'pn结温度-电压特性的测定.png'))
 

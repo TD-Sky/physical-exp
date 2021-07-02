@@ -1,5 +1,6 @@
 import os
 import json
+from ..get_prefix import getPrefix
 from decimal import Decimal, ROUND_HALF_UP
 
 
@@ -11,21 +12,12 @@ class Experiment():
         pass
 
 
-    @classmethod
-    def getPrefix(cls, backward = -3, path = __file__):
-        """递归获取倒数第|backward|级目录路径
-        param: int backward, str path
-        return: str path_head
-        """
-        return path if backward == 0 else cls.getPrefix(backward + 1, os.path.split(path)[0])
-
-
     def Istream(self):
         """读取指定文件的内容
         param: None
         return: str content
         """
-        file = os.path.join(self.getPrefix(), 'input', self.io + ".json")
+        file = os.path.join(getPrefix(__file__, -3), 'input', self.io + ".json")
         with open(file, 'r') as fp:
             content = json.load(fp)
         return content
@@ -36,7 +28,7 @@ class Experiment():
         param: str content
         return: None
         """
-        file = os.path.join(self.getPrefix(), 'output', self.io + ".txt")
+        file = os.path.join(getPrefix(__file__, -3), 'output', self.io + ".txt")
         with open(file, 'w') as fp:
             fp.write(content)
 
@@ -46,7 +38,7 @@ class Experiment():
         param: None
         return: None
         """
-        file = os.path.join(self.getPrefix(), 'template', self.template)
+        file = os.path.join(getPrefix(__file__, -3), 'template', self.template)
         with open(file, 'r') as fp:
             print(fp.read())
 
