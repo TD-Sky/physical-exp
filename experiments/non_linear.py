@@ -1,16 +1,16 @@
+# 因问题太复杂，导致该模块成为废案
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 from .experiment import Experiment
-from pprint import pprint
+from .tools import round_dec
 
 
 class Non_linear(Experiment):
     "非线性实验"
 
     def __init__(self):
-        self.template = "non_linear.txt"
-        self.io = "非线性实验"
         self.data = None
         self.result = {}
 
@@ -19,30 +19,15 @@ class Non_linear(Experiment):
         self.result["zener_diode"] = plt.figure(figsize=(12, 12))
         self.result["light_diode"] = plt.figure(figsize=(12, 12))
 
+    def input(self, raw_data: dict):
+        self.data = self.set_np(raw_data)
 
-    def collect_way(self, raw_data):
-        """ """
-        self.data = Non_linear.set_np(raw_data)
-
-
-    def write_result(self):
-        """ """
-        pass
-
-
-    @staticmethod
-    def set_np(dct):
-        """传入一个字典，若其值为数组，则设为numpy数组
-        param: dict dct
-        return: dict res
-        """
+    def set_np(self, dct: dict):
+        """传入一个字典，若其值为数组，则设为numpy数组"""
         for key, val in dct.items():
-            dct[key] = Non_linear.set_np(val) if isinstance(val, dict) else np.array(val)
-        return dct
+            dct[key] = self.set_np(val) if isinstance(val, dict) else np.array(val)
 
-
-    @staticmethod
-    def set_graph(dct):
+    def set_graph(self, dct):
         """设置曲线图样式"""
         ax = plt.gca()
 
@@ -57,8 +42,8 @@ class Non_linear(Experiment):
         ax.set_xticks([-1.2, 1.2])
         ax.set_yticks([-1.2, 1.2])
 
-        plt.xticks(np.arange(0, float(self.round_dec(self.data['U/V'].max(), 1))+0.1, 0.1))
-        plt.yticks(np.arange(0, float(self.round_dec(self.data['I/mA'].max(), 1))+0.1, 0.1))
+        plt.xticks(np.arange(0, float(round_dec(self.data['U_V'].max(), 1))+0.1, 0.1))
+        plt.yticks(np.arange(0, float(round_dec(self.data['I_mA'].max(), 1))+0.1, 0.1))
         plt.xlabel('U/V')
         plt.ylabel('I/mA')
         plt.grid()
