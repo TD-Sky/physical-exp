@@ -7,7 +7,7 @@ class Micrometer(Experiment):
     """基本测量-千分尺"""
 
     def __init__(self):
-        self.data = None
+        self.data: np.ndarray
         self.result = 0
 
     def input(self, raw_data: dict):
@@ -17,4 +17,4 @@ class Micrometer(Experiment):
         self.result = float(round_dec(self.data.mean(), 3))
 
     def output(self) -> str:
-        return f'钢珠直径的平均值 D2/mm ：{self.result}\n'
+        return f"钢珠直径的平均值 D2/mm ：{self.result}\n"
