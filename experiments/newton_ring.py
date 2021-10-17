@@ -8,7 +8,7 @@ class Newton_ring(Experiment):
     """牛顿环实验"""
 
     def __init__(self):
-        self.data: dict = None
+        self.data: dict
         self.result = {}
 
     def input(self, raw_data: dict):
@@ -23,14 +23,15 @@ class Newton_ring(Experiment):
             Pipe
             | zip(self.result["D^2"][0:4], self.result["D^2"][4:8])
             | partial(map, lambda tp: (tp[0] - tp[1]) / (4 * 4 * LAMBDA))
+            | list
             | np.array
             | np.mean
-            | partial(round_dec, 3)
+            | partial(round_dec, d=3)
             | None
         )
 
     def output(self) -> str:
-        D_2 = [str(round_dec(n, 3)) for n in self.result["D^2"]]
-        R_ = str(self.result["R_"])
-
-        return "暗环直径: {}\n暗环直径平方: {}\n牛顿环半径: {}\n".format(self.result["D"], D_2, R_)
+        return "暗环直径: {}\n暗环直径平方: {}\n牛顿环半径: {}\n".format(
+            self.result["D"],
+            [str(round_dec(n, 3)) for n in self.result["D^2"]],
+            self.result["R_"])
