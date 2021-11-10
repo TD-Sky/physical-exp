@@ -20,6 +20,7 @@ if __name__ == "__main__":
         "pn_junction": Pn_junction,
         "vernier_caliper": Vernier_caliper,
         "young_modulus": Young_modulus,
+        "moment_of_inertia": Moment_of_inertia,
     }
     exp = exps[exp_name]()
     exp.input(in_data)
