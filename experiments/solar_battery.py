@@ -25,15 +25,17 @@ class Solar_battery(Experiment):
         self.result["P/mW"] = [float(round_dec(P, 3)) for P in Ps]
 
         # 设置曲线图样式
-        plt.xticks(np.arange(0, float(round_dec(self.data["U/V"].max(), 1)) + 0.1, 0.1))
+        plt.xticks(
+            np.arange(0, float(round_dec(self.data["U/V"].max(), 1)) + 0.1, 0.1))
         plt.yticks(
-            np.arange(0, float(round_dec(self.data["I/mA"].max(), 1)) + 0.1, 0.1)
+            np.arange(
+                0, float(round_dec(self.data["I/mA"].max(), 1)) + 0.1, 0.1)
         )
         plt.xlabel("U/V")
         plt.ylabel("I/mA")
         plt.grid()
 
-    def draw(self):
+        # 画图
         plt.scatter(self.data["U/V"], self.data["I/mA"])
         self.fig.savefig(
             os.path.join(getPrefix(__file__, -2), "pic", "太阳能电池伏安特性曲线.png")
