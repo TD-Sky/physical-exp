@@ -19,6 +19,7 @@ if __name__ == "__main__":
         "newton_ring": Newton_ring,
         "pn_junction": Pn_junction,
         "vernier_caliper": Vernier_caliper,
+        "young_modulus": Young_modulus,
     }
     exp = exps[exp_name]()
     exp.input(in_data)
