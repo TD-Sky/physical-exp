@@ -6,3 +6,4 @@ from .solar_battery import Solar_battery
 from .vernier_caliper import Vernier_caliper
 from .young_modulus import Young_modulus
 from .moment_of_inertia import Moment_of_inertia
+from .liq_e_conductivity import Liq_e_conductivity

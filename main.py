@@ -21,12 +21,12 @@ if __name__ == "__main__":
         "vernier_caliper": Vernier_caliper,
         "young_modulus": Young_modulus,
         "moment_of_inertia": Moment_of_inertia,
+        "liq_e_conductivity": Liq_e_conductivity,
     }
     exp = exps[exp_name]()
     exp.input(in_data)
     exp.process()
 
     # 数据输出模块
-    exp.draw()
     out_data = exp.output()
     sys.stdout.write(out_data)
