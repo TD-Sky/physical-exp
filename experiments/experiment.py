@@ -18,4 +18,4 @@ class Experiment():
 
     def output(self) -> str:
         """返回最终结果的字符串"""
-        pass
+        return ""
